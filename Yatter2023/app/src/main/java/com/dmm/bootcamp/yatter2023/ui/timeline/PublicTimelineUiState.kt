@@ -6,12 +6,14 @@ data class PublicTimelineUiState(
     val statusList: List<StatusBindingModel>,
     val isLoading: Boolean,
     val isRefreshing: Boolean,
+    val currentNum: String,
 ) {
     companion object {
         fun empty(): PublicTimelineUiState = PublicTimelineUiState(
             statusList = emptyList(),
             isLoading = false,
             isRefreshing = false,
+            currentNum = "id"
         )
     }
 }

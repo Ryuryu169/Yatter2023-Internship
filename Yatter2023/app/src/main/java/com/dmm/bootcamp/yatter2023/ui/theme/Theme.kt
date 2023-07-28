@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 
 private val darkColorScheme = darkColors(
   primary = Purple80,
-  secondary = PurpleGrey80,
+  secondary = Purple80,
 )
 
 private val lightColorScheme = lightColors(
   primary = Purple40,
-  secondary = PurpleGrey40,
+  secondary = Purple40,
 )
 
 @Composable

@@ -1,17 +1,28 @@
 package com.dmm.bootcamp.yatter2023.ui.timeline
 
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,19 +35,41 @@ import com.dmm.bootcamp.yatter2023.ui.timeline.bindingmodel.StatusBindingModel
 fun StatusRow(
     statusBindingModel: StatusBindingModel,
     modifier: Modifier = Modifier,
+    onMenuCardClick: (String) -> Unit
 ) {
     Row(
 
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(10.dp)
+            .clickable { onMenuCardClick(statusBindingModel.id) }
     ) {
-        AsyncImage(
-            modifier = Modifier.size(48.dp),
-            model = statusBindingModel.avatar,
-            contentDescription = "アバター画像",
-            contentScale = ContentScale.Crop,
-        )
+        // Spacer(Modifier.size(20.dp))
+        val imageModifier = Modifier
+            .size(45.dp)
+            .clip(CircleShape)
+        statusBindingModel.avatar?.let { Log.d("hello", it) }
+        if (statusBindingModel.avatar != "null") {
+            AsyncImage(
+                modifier = imageModifier,
+                model = statusBindingModel.avatar,
+                contentDescription = "アバター画像",
+                contentScale = ContentScale.Crop,
+            )
+        } else {
+            Box(
+                modifier = imageModifier.background(color = Color.LightGray)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Icon",
+                    modifier = imageModifier,
+                )
+            }
+        }
+
+
+        Spacer(Modifier.size(20.dp))
 
         Column {
             Row {
@@ -82,7 +115,8 @@ private fun StatusRowPreview() {
                             description = "icon"
                         )
                     )
-                )
+                ),
+                onMenuCardClick = {}
             )
         }
     }
